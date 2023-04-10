@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-    import { Colors } from './types/Colors';
     import { Line } from './types/Line';
 	import type { Point } from './types/Point';
 	import { RandomPoint } from './types/RandomPoint';
