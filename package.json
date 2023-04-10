@@ -2,7 +2,7 @@
   "name": "home-svelte-app",
   "version": "1.0.0",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack && mkdir --parents _site && cp --recursive public/build/* _site",
+    "build": "cross-env NODE_ENV=production webpack",
     "dev": "webpack-dev-server"
   },
   "devDependencies": {
