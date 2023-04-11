@@ -53,6 +53,16 @@ export class Point extends Peak implements Drawable {
         canvasRenderingContext.fill();
     }
 
+    updateWindow(width: number, height: number): void {
+        this.xMax = width;
+        this.yMax = height;
+    }
+
+    isInsideWindow(width: number, height: number): boolean {
+        return !this.isHorizontallyOutsideWindow(width)
+            && !this.isVerticallyOutsideWindow(height);
+    }
+
     private incrementPositionGivenSpeed(): void {
         this._x += this.dx;
         this._y += this.dy;
@@ -67,14 +77,14 @@ export class Point extends Peak implements Drawable {
         }
     }
 
-    private isHorizontallyOutsideWindow(): boolean {
+    private isHorizontallyOutsideWindow(xMaxOverride: number | undefined = undefined): boolean {
         return this.x - this.radius <= 0 
-            || this.x + this.radius >= this.xMax;
+            || this.x + this.radius >= (xMaxOverride || this.xMax);
     }
 
-    private isVerticallyOutsideWindow(): boolean {
+    private isVerticallyOutsideWindow(yMaxOverride: number | undefined = undefined): boolean {
         return this.y - this.radius <= 0 
-            || this.y + this.radius >= this.yMax;
+            || this.y + this.radius >= (yMaxOverride || this.yMax);
     }
 
     private invertHorizontalSpeed(): void {

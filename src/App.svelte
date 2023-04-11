@@ -4,14 +4,10 @@
 	import type { Point } from './types/Point';
 	import { RandomPoint } from './types/RandomPoint';
 
-	export let canvasHeight: number = window.innerHeight;
-	export let canvasWidth: number = window.innerWidth;
-
-	const SCREEN_RATIO = Math.max(window.outerHeight, window.outerWidth) / Math.min(window.outerHeight, window.outerWidth) * 100;
-	const NB_INITIAL_POINTS: number = Math.floor(Math.min(canvasWidth, canvasHeight) / Math.max(canvasWidth, canvasHeight) * SCREEN_RATIO * 2.5);
-	const MAX_DISTANCE_FOR_LINE: number = Math.min(Math.sqrt(NB_INITIAL_POINTS * SCREEN_RATIO), 100);
-
 	const RENDER_INTERVAL: number = 10;
+
+	let canvasHeight: number = window.innerHeight;
+	let canvasWidth: number = window.innerWidth;
 
 	let points: Point[] = [];
 	let lines: Line[] = [];
@@ -19,25 +15,43 @@
 	let canvas: HTMLCanvasElement;
 	let canvasRenderingContext: CanvasRenderingContext2D;
 
+	$: SCREEN_RATIO = Math.max(window.outerHeight, window.outerWidth) / Math.min(window.outerHeight, window.outerWidth) * 100;
+	$: NB_INITIAL_POINTS = Math.floor(Math.min(canvasWidth, canvasHeight) / Math.max(canvasWidth, canvasHeight) * SCREEN_RATIO * 2.5);
+	$: MAX_DISTANCE_FOR_LINE = Math.min(Math.sqrt(NB_INITIAL_POINTS * SCREEN_RATIO), 100);
+
+	$: updateCanvasSize(canvasWidth, canvasHeight);
+	$: debugData({ 
+		canvasHeight, 
+		canvasWidth, 
+		NB_INITIAL_POINTS, 
+		MAX_DISTANCE_FOR_LINE 
+	});
+
+	function updateCanvasSize(width: number , height: number): void {
+		if (canvas) {
+			canvas.width = width;
+			canvas.height = height;
+		}
+	}
+
 	function initPoints(): void {
-		for (let i=0; i<NB_INITIAL_POINTS; i++) {
+		for (let i: number = 0; i < NB_INITIAL_POINTS; i++) {
 			points.push(new RandomPoint(canvasWidth, canvasHeight));
 		}
 	}
 
-	function logInitializationData() {
-		console.log(`canvasHeight = ${canvasHeight}`);
-		console.log(`canvasWidth = ${canvasWidth}`);
-		console.log(`NB_INITIAL_POINTS = ${NB_INITIAL_POINTS}`);
-		console.log(`MAX_DISTANCE_FOR_LINE = ${MAX_DISTANCE_FOR_LINE}`);
+	function debugData(data: object): void {
+		Object.entries(data).forEach(([key, value]) => {
+			console.debug(`${key} = ${value}`);
+		});
 	}
 
 	function compute(): void {
 		lines = [];
 
-		for (let i=0; i<points.length; i++) {
+		for (let i: number = 0; i < points.length; i++) {
 			const point1: Point = points[i];
-			for (let j=i+1; j<points.length; j++) {
+			for (let j: number = i+1; j < points.length; j++) {
 				const point2: Point = points[j]
 				if (Line.computeDistance(point1, point2) <= MAX_DISTANCE_FOR_LINE) {
 					lines.push(new Line(point1, point2));
@@ -47,11 +61,17 @@
 	}
  
 	function startAnimation(): number {
-		return setInterval(() => {
+		animationId = setInterval(() => {
 			movePoints();
 			compute();
 			window.requestAnimationFrame(render);
 		}, RENDER_INTERVAL);
+		return animationId;
+	}
+
+	function stopAnimation(): void {
+		clearInterval(animationId);
+		animationId = null;
 	}
 
 	function render(timestamp: DOMHighResTimeStamp): void {
@@ -75,28 +95,39 @@
 	onMount((): void => {
 		initPoints();
 		canvasRenderingContext = canvas.getContext('2d');
-		canvas.width = canvasWidth;
-		canvas.height = canvasHeight;
-		logInitializationData();
+		updateCanvasSize(canvasWidth, canvasHeight);
+		toggleAnimation();
 	});
-	animationId = startAnimation();
 
-	function resizeAndRender() {
-		console.debug("Window resized");
-		// TODO
+	function resizeAndRender(): void {
+		canvasWidth = window.innerWidth;
+		canvasHeight = window.innerHeight;
+		adjustPoints();
 	}
 
-	function toggleAnimation() {
+	function adjustPoints(): void {
+		const adjustedPoints: Point[] = points
+			.filter(point => point.isInsideWindow(canvasWidth, canvasHeight))
+			.slice(0, NB_INITIAL_POINTS);
+		adjustedPoints.forEach(point => point.updateWindow(canvasWidth, canvasHeight));
+		if (adjustedPoints.length < NB_INITIAL_POINTS) {
+			for (let i: number = 0; i < NB_INITIAL_POINTS - adjustedPoints.length; i++) {
+				adjustedPoints.push(new RandomPoint(canvasWidth, canvasHeight));
+			}
+		}
+		points = adjustedPoints;
+	}
+
+	function toggleAnimation(): void {
 		if (animationId) {
-			clearInterval(animationId);
-			animationId = null;
+			stopAnimation();
 		} else {
-			animationId = startAnimation();
+			startAnimation();
 		}
 	}
 
-	function handleKeyPress(event) {
-		switch(event.key) {
+	function handleKeyPress(event): void {
+		switch (event.key) {
 			case ' ': toggleAnimation();
 				break;
 			default: break;
