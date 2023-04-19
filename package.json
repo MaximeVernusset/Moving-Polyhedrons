@@ -1,6 +1,11 @@
 {
-  "name": "home-svelte-app",
+  "name": "moving-polyhedrons",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MaximeVernusset/Moving-Polyhedrons.git"
+  },
+  "author": "Maxime Vernusset",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "webpack-dev-server"
