@@ -3,8 +3,6 @@ import type { Point } from './Point';
 import { RandomPoint } from './RandomPoint';
 import { Colors } from './Colors';
 import type { RgbColor } from './RgbColor';
-import { bind } from 'svelte/internal';
-import app from '../main';
 
 const RENDER_INTERVAL: number = 10;
 
@@ -23,8 +21,6 @@ export class MovingPolyhedrons {
 
 	private canvasHeight: number;
 	private canvasWidth: number;
-	private canvasMaxHeight: number;
-	private canvasMaxWidth: number;
 	private screenRatio: number;
 	private distanceForLine: number;
 
@@ -50,8 +46,6 @@ export class MovingPolyhedrons {
 		this.canvas = canvas;
 		this.canvasHeight = canvasHeight;
 		this.canvasWidth = canvasWidth;
-		this.canvasMaxHeight = canvasHeight;
-		this.canvasMaxWidth = canvasWidth;
 		this.canvasRenderingContext = canvas.getContext('2d');
 		this.pointsColor = pointsColor;
 		this.linesColor = linesColor;
@@ -100,12 +94,10 @@ export class MovingPolyhedrons {
 
 	private updateCanvasSize(width: number , height: number): void {
 		if (this.canvas) {
-			const widthToSet = 	width <= this.canvasMaxWidth ? width : this.canvasMaxWidth;
-			const heightToSet = height <= this.canvasMaxHeight ? height : this.canvasMaxHeight;
-			this.canvasWidth = widthToSet;
-			this.canvasHeight = heightToSet;
-			this.canvas.width = widthToSet;
-			this.canvas.height = heightToSet;
+			this.canvasWidth = width;
+			this.canvasHeight = height;
+			this.canvas.width = width;
+			this.canvas.height = height;
 		}
 	}
 
