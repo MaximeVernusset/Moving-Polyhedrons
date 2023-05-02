@@ -14,7 +14,9 @@ export const EVENTS = {
 	RESIZE: 'resize',
 	TOGGLE_ANIMATION: 'toggleAnimation',
 	CHANGE_LINES_COLOR: 'changeLinesColor',
-	STROBOSCOPE_MODE: 'stroboscopeMode'
+	STROBOSCOPE_MODE: 'stroboscopeMode',
+	ADD_POINTS: 'addPoints',
+	REMOVE_POINTS: 'removePoints'
 };
 
 export class MovingPolyhedrons {
@@ -178,8 +180,18 @@ export class MovingPolyhedrons {
 		}, colorChangeInterval);
 	}
 
-	private stopStroboscope() {
+	private stopStroboscope(): void  {
 		clearInterval(this.stroboscopeModeAnimationId);
+	}
+
+	private addPoints(nbToAdd: number): void {
+		for (let i: number = 0; i < nbToAdd; i++) {
+			this.points.push(new RandomPoint(this.canvasWidth, this.canvasHeight));
+		}
+	}
+
+	private removePoints(nbToRemove: number): void {
+		this.points = this.points.slice(0, this.points.length - (nbToRemove + 1));
 	}
 
 	private adjustPoints(): void {

@@ -7,6 +7,8 @@
 ## Shortcuts
 
 - `space`: pause/unpause
+- `+`: add 5 points
+- `-`: remove 5 points
 - `r`: draw lines in red
 - `g`: draw lines in green
 - `b`: draw lines in blue

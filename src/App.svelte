@@ -7,6 +7,8 @@
 
 	const KEYPRESSED_HANDLERS = {
 		' ': toggleAnimation,
+		'+': add5Points,
+		'-': remove5Points,
 		's': stroboscopeMode,
 		'r': changeLinesColor(Colors.RED),
 		'g': changeLinesColor(Colors.GREEN),
@@ -48,8 +50,16 @@
 		app.receiveEvent(EVENTS.TOGGLE_ANIMATION, { event });
 	}
 
-	function stroboscopeMode(event: any) {
+	function stroboscopeMode(event: any): void {
 		app.receiveEvent(EVENTS.STROBOSCOPE_MODE, { event });
+	}
+
+	function add5Points(event: any): void {
+		app.receiveEvent(EVENTS.ADD_POINTS, { event, data: 5 });
+	}
+
+	function remove5Points(event: any): void {
+		app.receiveEvent(EVENTS.REMOVE_POINTS, { event, data: 5 });
 	}
 
 </script>
