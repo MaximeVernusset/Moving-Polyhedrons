@@ -4,6 +4,11 @@
 
 [Result in Github Pages](https://maximevernusset.github.io/Moving-Polyhedrons/)
 
+<iframe
+    src="https://maximevernusset.github.io/Moving-Polyhedrons/"
+    width="100%">
+</iframe>
+
 ## Shortcuts
 
 - `space`: pause/unpause
