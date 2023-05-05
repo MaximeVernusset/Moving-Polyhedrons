@@ -1,0 +1,17 @@
+{
+    "name": "Moving Polyhedrons",
+    "short_name": "Moving Polyhedrons",
+    "description": "Moving Polyhedrons",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "background_color": "black",
+    "theme_color": "black",
+    "icons": [
+        {
+            "src": "./img/icon.png",
+            "sizes": "222x222",
+            "type": "image/png"
+        }
+    ]
+}
