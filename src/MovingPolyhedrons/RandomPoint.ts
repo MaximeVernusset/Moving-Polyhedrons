@@ -1,9 +1,9 @@
 import { Point, DEFAULT_RADIUS } from "./Point";
 import type { RgbColor } from "./RgbColor";
 
-const POSITIVE: number = 1;
-const NEGATIVE: number = - 1;
-const RANDOM_SPEED_MULTIPLIER: number = 2;
+const POSITIVE = 1;
+const NEGATIVE = - 1;
+const RANDOM_SPEED_MULTIPLIER = 2;
 
 function generateRandomPositiveCoordinate(maxValue: number, pointRadius: number): number {
     let randomCoordinate = (Math.random() * (maxValue - pointRadius)) % (maxValue - pointRadius);

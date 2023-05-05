@@ -8,10 +8,10 @@ const app = new App({
 
 export default app;
 
-const registerServiceWorker = async () => {
+const registerServiceWorker = async (): Promise<void> => {
     if ('serviceWorker' in navigator) {
         try {
-            const registration = await navigator.serviceWorker.register('serviceWorker.js', {
+            await navigator.serviceWorker.register('serviceWorker.js', {
                 scope: '/',
             });
         } catch (error) {

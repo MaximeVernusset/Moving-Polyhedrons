@@ -1,8 +1,8 @@
 export class RgbColor {
 
-    private red: number = 0;
-    private green: number = 0;
-    private blue: number = 0;
+    private red = 0;
+    private green = 0;
+    private blue = 0;
 
     constructor(red, green, blue) {
         this.red = red;
@@ -10,7 +10,7 @@ export class RgbColor {
         this.blue = blue;
     }
 
-    getRgba(alpha: number = 1.0): string {
+    getRgba(alpha = 1.0): string {
         return `rgba(
             ${this.red},
             ${this.green}, 

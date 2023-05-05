@@ -43,15 +43,15 @@
 	}
 
 	function resize(event: any): void {
-		app.receiveEvent(EVENTS.RESIZE, { event });
+		app.receiveEvent(EVENTS.RESIZE, { event, data: null });
 	}
 
 	function toggleAnimation(event: any): void {
-		app.receiveEvent(EVENTS.TOGGLE_ANIMATION, { event });
+		app.receiveEvent(EVENTS.TOGGLE_ANIMATION, { event, data: null });
 	}
 
 	function stroboscopeMode(event: any): void {
-		app.receiveEvent(EVENTS.STROBOSCOPE_MODE, { event });
+		app.receiveEvent(EVENTS.STROBOSCOPE_MODE, { event, data: null });
 	}
 
 	function add5Points(event: any): void {

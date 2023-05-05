@@ -5,18 +5,6 @@ const addResourcesToCache = async (resources) => {
     await cache.addAll(resources);
 };
 
-self.addEventListener('install', (event) => {
-    event.waitUntil(
-        addResourcesToCache([
-            '/',
-            '/index.html',
-            '/img/icon.png',
-            '/build/bundle.js',
-            '/build/bundle.css'
-        ])
-    );
-});
-
 const putInCache = async (request, response) => {
     const cache = await caches.open(CACHE);
     await cache.put(request, response);
@@ -31,6 +19,18 @@ const cacheFirst = async (request) => {
     putInCache(request, responseFromNetwork.clone());
     return responseFromNetwork;
 };
+
+self.addEventListener('install', (event) => {
+    event.waitUntil(
+        addResourcesToCache([
+            '/',
+            '/index.html',
+            '/img/icon.png',
+            '/build/bundle.js',
+            '/build/bundle.css'
+        ])
+    );
+});
 
 self.addEventListener('fetch', (event) => {
     event.respondWith(cacheFirst(event.request));

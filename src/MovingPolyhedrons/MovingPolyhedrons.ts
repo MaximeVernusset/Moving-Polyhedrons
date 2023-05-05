@@ -3,12 +3,9 @@ import type { Point } from './Point';
 import { RandomPoint } from './RandomPoint';
 import { Colors } from './Colors';
 import type { RgbColor } from './RgbColor';
+import type { EventData } from './EventData';
 
-const RENDER_INTERVAL: number = 10;
-
-function debugData(data: object): void {
-	console.debug(data);
-}
+const RENDER_INTERVAL = 10;
 
 export const EVENTS = {
 	RESIZE: 'resize',
@@ -84,7 +81,7 @@ export class MovingPolyhedrons {
 		}
 	}
 
-	receiveEvent(name: string, data: any | undefined = undefined): boolean {
+	receiveEvent(name: string, data: EventData | undefined = undefined): boolean {
 		const eventHandler = this[name];
 		if (eventHandler) {
 			eventHandler.bind(this)(data.data);
@@ -104,7 +101,7 @@ export class MovingPolyhedrons {
 	}
 
 	private initPoints(): void {
-		for (let i: number = 0; i < this.nbPoints; i++) {
+		for (let i = 0; i < this.nbPoints; i++) {
 			this.points.push(new RandomPoint(this.canvasWidth, this.canvasHeight, this.pointsColor));
 		}
 	}
@@ -112,9 +109,9 @@ export class MovingPolyhedrons {
 	private compute(): void {
 		this.lines = [];
 
-		for (let i: number = 0; i < this.points.length; i++) {
+		for (let i = 0; i < this.points.length; i++) {
 			const point1: Point = this.points[i];
-			for (let j: number = i+1; j < this.points.length; j++) {
+			for (let j = i+1; j < this.points.length; j++) {
 				const point2: Point = this.points[j]
 				if (Line.computeDistance(point1, point2) <= this.distanceForLine) {
 					this.lines.push(new Line(point1, point2, this.linesColor));
@@ -143,7 +140,7 @@ export class MovingPolyhedrons {
 
 	private render(): void {
 		this.canvasRenderingContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
-		for (let i: number = 0; i < Math.max(this.points.length, this.lines.length); i++) {
+		for (let i = 0; i < Math.max(this.points.length, this.lines.length); i++) {
 			if (i < this.points.length) {
 				this.points[i].draw(this.canvasRenderingContext, this.pointsColor);
 			}
@@ -185,7 +182,7 @@ export class MovingPolyhedrons {
 	}
 
 	private addPoints(nbToAdd: number): void {
-		for (let i: number = 0; i < nbToAdd; i++) {
+		for (let i = 0; i < nbToAdd; i++) {
 			this.points.push(new RandomPoint(this.canvasWidth, this.canvasHeight));
 		}
 	}
@@ -200,7 +197,7 @@ export class MovingPolyhedrons {
 			.slice(0, this.nbPoints);
 		adjustedPoints.forEach(point => point.updateWindow(this.canvasWidth, this.canvasHeight));
 		if (adjustedPoints.length < this.nbPoints) {
-			for (let i: number = 0; i < this.nbPoints - adjustedPoints.length; i++) {
+			for (let i = 0; i < this.nbPoints - adjustedPoints.length; i++) {
 				adjustedPoints.push(new RandomPoint(this.canvasWidth, this.canvasHeight));
 			}
 		}

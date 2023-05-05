@@ -6,9 +6,9 @@ import type { RgbColor } from "./RgbColor";
 export const DEFAULT_COLOR = Colors.WHITE;
 export const DEFAULT_RADIUS = 1.1;
 
-const FULL_CIRCLE_ANGLE: number = Math.PI * 2;
-const START_CIRCLE_ANGLE: number = 0;
-const SCALE: number = 1;
+const FULL_CIRCLE_ANGLE = Math.PI * 2;
+const START_CIRCLE_ANGLE = 0;
+const SCALE = 1;
 
 export class Point extends Peak implements Drawable {
 
