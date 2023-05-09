@@ -4,6 +4,7 @@ const CACHE_FALLACK_NAME = 'cache';
 const CACHE_FIRST_RESOURCES = [
     '/',
     '/index.html',
+    '/serviceWorkerRegistration.js',
     '/img/icon.png',
     '/build/bundle.js',
     '/build/bundle.css'

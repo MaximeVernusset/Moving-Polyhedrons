@@ -13,7 +13,8 @@ export const EVENTS = {
 	CHANGE_LINES_COLOR: 'changeLinesColor',
 	STROBOSCOPE_MODE: 'stroboscopeMode',
 	ADD_POINTS: 'addPoints',
-	REMOVE_POINTS: 'removePoints'
+	REMOVE_POINTS: 'removePoints',
+	INVERT_DIR: 'invertDirection'
 };
 
 export class MovingPolyhedrons {
@@ -189,6 +190,10 @@ export class MovingPolyhedrons {
 
 	private removePoints(nbToRemove: number): void {
 		this.points = this.points.slice(0, this.points.length - (nbToRemove + 1));
+	}
+
+	private invertDirection(): void {
+		this.points.forEach(point => point.invertSpeed());
 	}
 
 	private adjustPoints(): void {

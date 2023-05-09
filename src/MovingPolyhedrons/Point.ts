@@ -63,6 +63,12 @@ export class Point extends Peak implements Drawable {
             && !this.isVerticallyOutsideWindow(height);
     }
 
+    invertSpeed() {
+        this.bounce();
+        this.invertHorizontalSpeed();
+        this.invertVerticalSpeed();
+    }
+
     private incrementPositionGivenSpeed(): void {
         this._x += this.dx;
         this._y += this.dy;

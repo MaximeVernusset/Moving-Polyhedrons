@@ -10,6 +10,7 @@
 		'+': add5Points,
 		'-': remove5Points,
 		's': stroboscopeMode,
+		'!': changePointsDirection,
 		'r': changeLinesColor(Colors.RED),
 		'g': changeLinesColor(Colors.GREEN),
 		'b': changeLinesColor(Colors.BLUE),
@@ -60,6 +61,10 @@
 
 	function remove5Points(event: any): void {
 		app.receiveEvent(EVENTS.REMOVE_POINTS, { event, data: 5 });
+	}
+
+	function changePointsDirection(event: any): void {
+		app.receiveEvent(EVENTS.INVERT_DIR, { event, data: null });
 	}
 
 </script>
