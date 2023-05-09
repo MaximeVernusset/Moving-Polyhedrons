@@ -12,7 +12,7 @@ const registerServiceWorker = async (): Promise<void> => {
     if ('serviceWorker' in navigator) {
         try {
             await navigator.serviceWorker.register('serviceWorker.js', {
-                scope: '/',
+                scope: './',
             });
         } catch (error) {
             console.error(`Service Worker registration failed: ${error}`);
