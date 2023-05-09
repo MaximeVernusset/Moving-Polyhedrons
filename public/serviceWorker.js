@@ -71,7 +71,7 @@ async function cacheStrategy(request) {
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        addResourcesToCache(CACHE_FIRST_RESOURCES)
+        addResourcesToCache(CACHE_FIRST_RESOURCES.map(resource => `.${resource}`))
     );
 });
 
