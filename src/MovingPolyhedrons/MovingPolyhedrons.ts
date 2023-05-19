@@ -7,15 +7,9 @@ import type { EventData } from './EventData';
 
 const RENDER_INTERVAL = 10;
 
-export const EVENTS = {
-	RESIZE: 'resize',
-	TOGGLE_ANIMATION: 'toggleAnimation',
-	CHANGE_LINES_COLOR: 'changeLinesColor',
-	STROBOSCOPE_MODE: 'stroboscopeMode',
-	ADD_POINTS: 'addPoints',
-	REMOVE_POINTS: 'removePoints',
-	INVERT_DIR: 'invertDirection'
-};
+export type { RgbColor };
+export { Colors };
+export { EVENTS } from './Events';
 
 export class MovingPolyhedrons {
 

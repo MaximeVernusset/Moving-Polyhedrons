@@ -1,9 +1,7 @@
 <script lang="ts">
 
 	import { onMount } from 'svelte';
-	import { MovingPolyhedrons, EVENTS } from './MovingPolyhedrons/MovingPolyhedrons';
-	import { Colors } from './MovingPolyhedrons/Colors';
-	import type { RgbColor } from './MovingPolyhedrons/RgbColor';
+	import { MovingPolyhedrons, EVENTS, Colors, RgbColor } from './MovingPolyhedrons/MovingPolyhedrons';
 
 	const KEYPRESSED_HANDLERS = {
 		' ': toggleAnimation,
